@@ -13,7 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.recyclerbillingdemo.adapter.TakeOrderRecyclerAdapter;
-import com.example.recyclerbillingdemo.pojo.TakeOrderArrayList;
+import com.example.recyclerbillingdemo.pojo.TakeOrderModel;
 
 import java.util.ArrayList;
 
@@ -27,8 +27,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public RecyclerView rvMenu;
     public LinearLayout ll_menu;
     public TakeOrderRecyclerAdapter takeOrderRecyclerAdapter;
-    public ArrayList<TakeOrderArrayList> takeOrderArrayList;
-    public TakeOrderArrayList setDataToArrayList;
+    public ArrayList<TakeOrderModel> takeOrderArrayList;
+    public TakeOrderModel takeOrderModel;
     public static String TAG="MainActivity";
 
     @Override
@@ -54,7 +54,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etAmount=findViewById(R.id.et_amount);
 
         //TextView Intialisation.....
-        tvTotalAmount=findViewById(R.id.tv_totalamount);
+//        tvTotalAmount=findViewById(R.id.tv_totalamount);
 
         //RecyclerView Intialisation....
         rvMenu=findViewById(R.id.rv_menu);
@@ -62,20 +62,20 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //Button Intialisation.....
         btnOpenTray=findViewById(R.id.btn_openfood);
         btnSubmitFood=findViewById(R.id.btn_menu);
-        btnTakeOrder=findViewById(R.id.btn_takeorder);
+    //    btnTakeOrder=findViewById(R.id.btn_takeorder);
 
         //LinearLayout Intialisation....
         ll_menu=findViewById(R.id.ll_data);
 
         // Arraylist Intialising
-        takeOrderArrayList=new ArrayList<>();
+        takeOrderArrayList =new ArrayList<>();
 
-
+        takeOrderModel=new TakeOrderModel();
 
         //creating objects of OnClickListener Events....
         btnOpenTray.setOnClickListener(this);
         btnSubmitFood.setOnClickListener(this);
-        btnTakeOrder.setOnClickListener(this);
+//        btnTakeOrder.setOnClickListener(this);
 
     }
 
@@ -91,27 +91,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                     break;
 
             case R.id.btn_menu:
-/*
 
-                setDataToArrayList.setCode(etCode.getText().toString());
-                setDataToArrayList.setMenu(etMenu.getText().toString());
-                setDataToArrayList.setQuantity(etQuantity.getText().toString());
-                setDataToArrayList.setServesin(etServesIn.getText().toString());
-                setDataToArrayList.setRate(etRate.getText().toString());
-                setDataToArrayList.setAmount(etAmount.getText().toString());
 
-*/              setDataToArrayList=new TakeOrderArrayList(etCode.getText().toString(),etMenu.getText().toString(),
-                    etQuantity.getText().toString(),etServesIn.getText().toString(),etRate.getText().toString(),
-                        etAmount.getText().toString());
+                /*takeOrderModel.setCode(etCode.getText().toString());
+                takeOrderModel.setMenu(etMenu.getText().toString());
+                takeOrderModel.setQuantity(etQuantity.getText().toString());
+                takeOrderModel.setServesin(etServesIn.getText().toString());
+                takeOrderModel.setRate(etRate.getText().toString());
+                takeOrderModel.setAmount(etAmount.getText().toString());
+*/
+                takeOrderModel=new TakeOrderModel("101","chapati","1","plate","150","1500");
 
-                takeOrderArrayList.add(setDataToArrayList);
+                takeOrderArrayList.add(takeOrderModel);
 
-                Toast.makeText(this, "Size"+takeOrderArrayList.size(), Toast.LENGTH_SHORT).show();
-                Log.e(TAG, "onClick: "+takeOrderArrayList );
+                //Toast.makeText(this, "Size"+ takeOrderArrayList.size(), Toast.LENGTH_SHORT).show();
+                Log.e(TAG, "onClick: "+ takeOrderArrayList.size());
 
-                Log.e(TAG, "onClick: "+takeOrderArrayList.toString());
-                takeOrderRecyclerAdapter=new TakeOrderRecyclerAdapter(MainActivity.this,takeOrderArrayList);
+                //Log.e(TAG, "onClick: "+ takeOrderModel.toString());
+
+                takeOrderRecyclerAdapter=new TakeOrderRecyclerAdapter(MainActivity.this, takeOrderArrayList);
+
                 rvMenu.setAdapter(takeOrderRecyclerAdapter);
+
+                 takeOrderRecyclerAdapter.notifyDataSetChanged();
 
                 break;
 

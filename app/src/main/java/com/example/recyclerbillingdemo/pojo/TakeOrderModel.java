@@ -2,7 +2,7 @@ package com.example.recyclerbillingdemo.pojo;
 
 import java.io.Serializable;
 
-public class TakeOrderArrayList implements Serializable {
+public class TakeOrderModel implements Serializable {
 
     public String code;
     public String menu;
@@ -11,7 +11,11 @@ public class TakeOrderArrayList implements Serializable {
     public String rate;
     public String amount;
 
-    public TakeOrderArrayList(String code, String menu, String quantity, String servesin, String rate, String amount) {
+    public TakeOrderModel() {
+
+    }
+
+    public TakeOrderModel(String code, String menu, String quantity, String servesin, String rate, String amount) {
         this.code = code;
         this.menu = menu;
         this.quantity = quantity;

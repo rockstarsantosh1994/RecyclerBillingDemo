@@ -102,7 +102,7 @@
             android:layout_marginTop="10dp"/>
 
 
-        <TextView
+       <!-- <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_total"
@@ -128,7 +128,7 @@
         android:layout_below="@id/tv_total"
         android:layout_alignParentBottom="true"/>
 
-
+-->
 </RelativeLayout>
 
 </ScrollView>

@@ -1,6 +1,7 @@
 package com.example.recyclerbillingdemo.adapter;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,19 +11,19 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.recyclerbillingdemo.R;
-import com.example.recyclerbillingdemo.pojo.TakeOrderArrayList;
+import com.example.recyclerbillingdemo.pojo.TakeOrderModel;
 
 import java.util.ArrayList;
 
 public class TakeOrderRecyclerAdapter extends RecyclerView.Adapter<TakeOrderRecyclerAdapter.TakeOrderViewHolder>{
 
     public Context context;
-    public ArrayList<TakeOrderArrayList> takeOrderArrayListArrayList;
+    public ArrayList<TakeOrderModel> takeOrderArrayListModel;
 
 
-    public TakeOrderRecyclerAdapter(Context context, ArrayList<TakeOrderArrayList> takeOrderArrayListArrayList) {
+    public TakeOrderRecyclerAdapter(Context context, ArrayList<TakeOrderModel> takeOrderArrayListModel) {
         this.context = context;
-        this.takeOrderArrayListArrayList = takeOrderArrayListArrayList;
+        this.takeOrderArrayListModel = takeOrderArrayListModel;
     }
 
 
@@ -37,17 +38,19 @@ public class TakeOrderRecyclerAdapter extends RecyclerView.Adapter<TakeOrderRecy
 
     @Override
     public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, int position) {
-        holder.tvCode.setText(takeOrderArrayListArrayList.get(position).getCode());
-        holder.tvMenu.setText(takeOrderArrayListArrayList.get(position).getMenu());
-        holder.tvQuantity.setText(takeOrderArrayListArrayList.get(position).getQuantity());
-        holder.tvServesIn.setText(takeOrderArrayListArrayList.get(position).getServesin());
-        holder.tvRate.setText(takeOrderArrayListArrayList.get(position).getRate());
-        holder.tvAmount.setText(takeOrderArrayListArrayList.get(position).getAmount());
+        holder.tvCode.setText(takeOrderArrayListModel.get(position).getCode());
+        holder.tvMenu.setText(takeOrderArrayListModel.get(position).getMenu());
+        holder.tvQuantity.setText(takeOrderArrayListModel.get(position).getQuantity());
+        holder.tvServesIn.setText(takeOrderArrayListModel.get(position).getServesin());
+        holder.tvRate.setText(takeOrderArrayListModel.get(position).getRate());
+        holder.tvAmount.setText(takeOrderArrayListModel.get(position).getAmount());
+
+        Log.e("mytag", "onBindViewHolder: "+takeOrderArrayListModel.size() );
     }
 
     @Override
     public int getItemCount() {
-        return takeOrderArrayListArrayList.size();
+        return takeOrderArrayListModel.size();
     }
 
     public class TakeOrderViewHolder extends RecyclerView.ViewHolder{
