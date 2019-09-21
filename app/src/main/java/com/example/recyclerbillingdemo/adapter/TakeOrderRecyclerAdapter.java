@@ -5,6 +5,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -37,13 +38,33 @@ public class TakeOrderRecyclerAdapter extends RecyclerView.Adapter<TakeOrderRecy
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, int position) {
-        holder.tvCode.setText(takeOrderArrayListModel.get(position).getCode());
-        holder.tvMenu.setText(takeOrderArrayListModel.get(position).getMenu());
-        holder.tvQuantity.setText(takeOrderArrayListModel.get(position).getQuantity());
-        holder.tvServesIn.setText(takeOrderArrayListModel.get(position).getServesin());
-        holder.tvRate.setText(takeOrderArrayListModel.get(position).getRate());
-        holder.tvAmount.setText(takeOrderArrayListModel.get(position).getAmount());
+    public void onBindViewHolder(@NonNull TakeOrderViewHolder holder, final int position) {
+
+        TakeOrderModel packageModel = takeOrderArrayListModel.get(position);
+
+        holder.tvCode.setText(packageModel.getCode());
+        holder.tvMenu.setText(packageModel.getMenu());
+        holder.tvQuantity.setText(packageModel.getQuantity());
+        holder.tvServesIn.setText(packageModel.getServesin());
+        holder.tvRate.setText(packageModel.getRate());
+        holder.tvAmount.setText(packageModel.getAmount());
+
+        holder.ivEditMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+            }
+        });
+
+        holder.ivDeleteMenu.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takeOrderArrayListModel.remove(position);
+                notifyItemRemoved(position);
+                notifyItemRangeChanged(position, takeOrderArrayListModel.size());
+            }
+        });
+
 
         Log.e("mytag", "onBindViewHolder: "+takeOrderArrayListModel.size() );
     }
@@ -57,6 +78,8 @@ public class TakeOrderRecyclerAdapter extends RecyclerView.Adapter<TakeOrderRecy
 
         public TextView tvCode,tvMenu,tvQuantity,tvServesIn,tvRate,tvAmount;
 
+        public ImageView ivEditMenu,ivDeleteMenu;
+
         public TakeOrderViewHolder(@NonNull View itemView) {
 
             super(itemView);
@@ -66,6 +89,8 @@ public class TakeOrderRecyclerAdapter extends RecyclerView.Adapter<TakeOrderRecy
             tvServesIn=itemView.findViewById(R.id.tv_servesin);
             tvRate=itemView.findViewById(R.id.tv_rate);
             tvAmount=itemView.findViewById(R.id.tv_amount);
+            ivEditMenu=itemView.findViewById(R.id.iv_edit);
+            ivDeleteMenu=itemView.findViewById(R.id.iv_delete);
         }
     }
 }

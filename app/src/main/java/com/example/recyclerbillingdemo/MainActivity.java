@@ -78,6 +78,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         btnSubmitFood.setOnClickListener(this);
 //        btnTakeOrder.setOnClickListener(this);
 
+        etServesIn.setText("Plate");
+        etRate.setText("15");
+
     }
 
 
@@ -94,14 +97,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_menu:
 
 
-                takeOrderModel.setCode(etCode.getText().toString());
-                takeOrderModel.setMenu(etMenu.getText().toString());
-                takeOrderModel.setQuantity(etQuantity.getText().toString());
-                takeOrderModel.setServesin(etServesIn.getText().toString());
-                takeOrderModel.setRate(etRate.getText().toString());
-                takeOrderModel.setAmount(etAmount.getText().toString());
-
-               // takeOrderModel=new TakeOrderModel("101","chapati","1","plate","150","1500");
+                takeOrderModel=new TakeOrderModel(etCode.getText().toString(),etMenu.getText().toString(),etQuantity.getText().toString(),etServesIn.getText().toString(),etRate.getText().toString(),etAmount.getText().toString());
 
                 takeOrderArrayList.add(takeOrderModel);
 
@@ -115,7 +111,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                  rvMenu.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
                  rvMenu.setAdapter(takeOrderRecyclerAdapter);
 
+                 ll_menu.setVisibility(View.GONE);
                  takeOrderRecyclerAdapter.notifyDataSetChanged();
+
+                 etCode.getText().clear();
+                 etMenu.getText().clear();
+                 etServesIn.getText().clear();
+                 etQuantity.getText().clear();
+                 etRate.getText().clear();
+                 etAmount.getText().clear();
 
                 break;
 
