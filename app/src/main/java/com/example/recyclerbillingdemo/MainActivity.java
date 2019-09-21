@@ -1,6 +1,7 @@
 package com.example.recyclerbillingdemo;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
@@ -93,14 +94,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             case R.id.btn_menu:
 
 
-                /*takeOrderModel.setCode(etCode.getText().toString());
+                takeOrderModel.setCode(etCode.getText().toString());
                 takeOrderModel.setMenu(etMenu.getText().toString());
                 takeOrderModel.setQuantity(etQuantity.getText().toString());
                 takeOrderModel.setServesin(etServesIn.getText().toString());
                 takeOrderModel.setRate(etRate.getText().toString());
                 takeOrderModel.setAmount(etAmount.getText().toString());
-*/
-                takeOrderModel=new TakeOrderModel("101","chapati","1","plate","150","1500");
+
+               // takeOrderModel=new TakeOrderModel("101","chapati","1","plate","150","1500");
 
                 takeOrderArrayList.add(takeOrderModel);
 
@@ -109,9 +110,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 //Log.e(TAG, "onClick: "+ takeOrderModel.toString());
 
-                takeOrderRecyclerAdapter=new TakeOrderRecyclerAdapter(MainActivity.this, takeOrderArrayList);
+                 takeOrderRecyclerAdapter=new TakeOrderRecyclerAdapter(MainActivity.this, takeOrderArrayList);
 
-                rvMenu.setAdapter(takeOrderRecyclerAdapter);
+                 rvMenu.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                 rvMenu.setAdapter(takeOrderRecyclerAdapter);
 
                  takeOrderRecyclerAdapter.notifyDataSetChanged();
 
