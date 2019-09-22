@@ -35,74 +35,15 @@
             android:layout_below="@+id/et_waitername"
             android:text="Open Food Tray"/>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/btn_openfood"
-            android:orientation="vertical"
-            android:id="@+id/ll_data"
-            android:visibility="gone">
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_code"
-                android:hint="Code"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_menu"
-                android:hint="Menu"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_qty"
-                android:hint="Quantity"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_ServesIn"
-                android:hint="ServesIn"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_rate"
-                android:hint="Rate"
-                />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/et_amount"
-                android:hint="Amount"
-                />
-
-            <Button
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:id="@+id/btn_menu"
-                android:text="submit food"/>
-
-        </LinearLayout>
-
-
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/rv_menu"
-            android:layout_below="@+id/ll_data"
+            android:layout_below="@+id/btn_openfood"
             android:layout_marginTop="10dp"/>
 
 
-       <!-- <TextView
+        <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/tv_total"
@@ -116,19 +57,21 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="63dp"
         android:layout_marginTop="20dp"
-        android:layout_toRightOf="@id/tv_total"
+        android:layout_toRightOf="@+id/tv_total"
         android:layout_below="@id/rv_menu"
         android:text="Total amount" />
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/btn_takeorder"
-        android:text="take order"
-        android:layout_below="@id/tv_total"
-        android:layout_alignParentBottom="true"/>
 
--->
+            <Button
+                android:id="@+id/btn_takeorder"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/tv_total"
+                android:text="take order"
+                />
+
+
+
 </RelativeLayout>
 
 </ScrollView>

@@ -4,14 +4,15 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.app.Dialog;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.example.recyclerbillingdemo.adapter.TakeOrderRecyclerAdapter;
 import com.example.recyclerbillingdemo.pojo.TakeOrderModel;
@@ -31,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public ArrayList<TakeOrderModel> takeOrderArrayList;
     public TakeOrderModel takeOrderModel;
     public static String TAG="MainActivity";
+    public Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,12 +49,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         //EditText Intialisation.....
         etTableno=findViewById(R.id.et_tableno);
         etWaitername=findViewById(R.id.et_waitername);
-        etCode=findViewById(R.id.et_code);
-        etMenu=findViewById(R.id.et_menu);
-        etQuantity=findViewById(R.id.et_qty);
-        etServesIn=findViewById(R.id.et_ServesIn);
-        etRate=findViewById(R.id.et_rate);
-        etAmount=findViewById(R.id.et_amount);
 
         //TextView Intialisation.....
 //        tvTotalAmount=findViewById(R.id.tv_totalamount);
@@ -62,11 +58,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Button Intialisation.....
         btnOpenTray=findViewById(R.id.btn_openfood);
-        btnSubmitFood=findViewById(R.id.btn_menu);
+        //btnSubmitFood=findViewById(R.id.btn_menu);
     //    btnTakeOrder=findViewById(R.id.btn_takeorder);
 
-        //LinearLayout Intialisation....
-        ll_menu=findViewById(R.id.ll_data);
 
         // Arraylist Intialising
         takeOrderArrayList =new ArrayList<>();
@@ -75,11 +69,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //creating objects of OnClickListener Events....
         btnOpenTray.setOnClickListener(this);
-        btnSubmitFood.setOnClickListener(this);
+        //btnSubmitFood.setOnClickListener(this);
 //        btnTakeOrder.setOnClickListener(this);
 
-        etServesIn.setText("Plate");
-        etRate.setText("15");
+
 
     }
 
@@ -88,15 +81,39 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch(v.getId()){
             case R.id.btn_openfood:
-                    if(ll_menu.getVisibility()==View.GONE){
-                        ll_menu.setVisibility(View.VISIBLE);
-                    }
-                    else ll_menu.setVisibility(View.GONE);
+                customDialog();
                     break;
 
             case R.id.btn_menu:
 
 
+
+                break;
+
+        }
+    }
+
+    public void customDialog(){
+        // custom dialog
+        dialog = new Dialog(this);
+        dialog.setContentView(R.layout.custom_acceptmenu);
+        dialog.setTitle("Title...");
+
+
+        //LinearLayout Intialisation....
+        ll_menu=dialog.findViewById(R.id.ll_data);
+
+        etCode=dialog.findViewById(R.id.et_code);
+        etMenu=dialog.findViewById(R.id.et_menu);
+        etQuantity=dialog.findViewById(R.id.et_qty);
+        etServesIn=dialog.findViewById(R.id.et_ServesIn);
+        etRate=dialog.findViewById(R.id.et_rate);
+        etAmount=dialog.findViewById(R.id.et_amount);
+        btnSubmitFood=dialog.findViewById(R.id.btn_menu);
+        // if button is clicked, close the custom dialog
+        btnSubmitFood.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 takeOrderModel=new TakeOrderModel(etCode.getText().toString(),etMenu.getText().toString(),etQuantity.getText().toString(),etServesIn.getText().toString(),etRate.getText().toString(),etAmount.getText().toString());
 
                 takeOrderArrayList.add(takeOrderModel);
@@ -106,23 +123,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
                 //Log.e(TAG, "onClick: "+ takeOrderModel.toString());
 
-                 takeOrderRecyclerAdapter=new TakeOrderRecyclerAdapter(MainActivity.this, takeOrderArrayList);
+                takeOrderRecyclerAdapter=new TakeOrderRecyclerAdapter(MainActivity.this, takeOrderArrayList);
 
-                 rvMenu.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
-                 rvMenu.setAdapter(takeOrderRecyclerAdapter);
+                rvMenu.setLayoutManager(new LinearLayoutManager(getApplicationContext(), LinearLayoutManager.VERTICAL, false));
+                rvMenu.setAdapter(takeOrderRecyclerAdapter);
 
-                 ll_menu.setVisibility(View.GONE);
-                 takeOrderRecyclerAdapter.notifyDataSetChanged();
+                ll_menu.setVisibility(View.GONE);
 
-                 etCode.getText().clear();
-                 etMenu.getText().clear();
-                 etServesIn.getText().clear();
-                 etQuantity.getText().clear();
-                 etRate.getText().clear();
-                 etAmount.getText().clear();
+                takeOrderRecyclerAdapter.notifyDataSetChanged();
 
-                break;
+                etCode.getText().clear();
+                etMenu.getText().clear();
+                etServesIn.getText().clear();
+                etQuantity.getText().clear();
+                etRate.getText().clear();
+                etAmount.getText().clear();
 
-        }
+
+                dialog.dismiss();
+            }
+        });
+
+        dialog.show();
     }
+
+
 }
