@@ -6,6 +6,8 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Dialog;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -41,31 +43,33 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
         //Basic Intialisation......
         init();
+
+
     }
 
 
-    public void init(){
+    public void init() {
 
         //EditText Intialisation.....
-        etTableno=findViewById(R.id.et_tableno);
-        etWaitername=findViewById(R.id.et_waitername);
+        etTableno = findViewById(R.id.et_tableno);
+        etWaitername = findViewById(R.id.et_waitername);
 
         //TextView Intialisation.....
 //        tvTotalAmount=findViewById(R.id.tv_totalamount);
 
         //RecyclerView Intialisation....
-        rvMenu=findViewById(R.id.rv_menu);
+        rvMenu = findViewById(R.id.rv_menu);
 
         //Button Intialisation.....
-        btnOpenTray=findViewById(R.id.btn_openfood);
+        btnOpenTray = findViewById(R.id.btn_openfood);
         //btnSubmitFood=findViewById(R.id.btn_menu);
-    //    btnTakeOrder=findViewById(R.id.btn_takeorder);
+        //    btnTakeOrder=findViewById(R.id.btn_takeorder);
 
 
         // Arraylist Intialising
-        takeOrderArrayList =new ArrayList<>();
+        takeOrderArrayList = new ArrayList<>();
 
-        takeOrderModel=new TakeOrderModel();
+        takeOrderModel = new TakeOrderModel();
 
         //creating objects of OnClickListener Events....
         btnOpenTray.setOnClickListener(this);
@@ -76,6 +80,36 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
+
+    public void calculateAmount(){
+        //TextWatcher Events occur...
+        etQuantity.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                try {
+                    if(etQuantity.getText().toString().equals("")){
+                        etAmount.getText().clear();
+                    }
+                    else {
+                        int result = ((Integer.parseInt(etQuantity.getText().toString())) * (Integer.parseInt(etRate.getText().toString())));
+
+                        etAmount.setText(String.valueOf(result));
+                    }
+                }catch (NumberFormatException e){e.printStackTrace();}
+            }
+        });
+
+    }
 
     @Override
     public void onClick(View v) {
@@ -111,6 +145,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         etAmount=dialog.findViewById(R.id.et_amount);
         btnSubmitFood=dialog.findViewById(R.id.btn_menu);
         // if button is clicked, close the custom dialog
+
+        //Textwatcher event...
+        calculateAmount();
+
         btnSubmitFood.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -138,7 +176,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 etQuantity.getText().clear();
                 etRate.getText().clear();
                 etAmount.getText().clear();
-
 
                 dialog.dismiss();
             }

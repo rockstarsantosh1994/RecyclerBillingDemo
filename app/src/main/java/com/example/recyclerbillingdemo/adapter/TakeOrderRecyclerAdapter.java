@@ -99,7 +99,12 @@ public class TakeOrderRecyclerAdapter extends RecyclerView.Adapter<TakeOrderRecy
                         holder.tvRate.setText(etRate.getText().toString());
                         holder.tvAmount.setText(etAmount.getText().toString());
 
-                        notifyDataSetChanged();
+                        takeOrderModel=new TakeOrderModel(etCode.getText().toString(),etMenu.getText().toString(),etQuantity.getText().toString(),etServesIn.getText().toString(),etRate.getText().toString(),etAmount.getText().toString());
+
+                        notifyItemChanged(position);
+
+
+                        //notifyItemChanged(position);
 
                         dialog.dismiss();
                     }
@@ -123,35 +128,6 @@ public class TakeOrderRecyclerAdapter extends RecyclerView.Adapter<TakeOrderRecy
     }
 
 
-    public void customDialog() {
-        // custom dialog
-        dialog = new Dialog(context);
-        dialog.setContentView(R.layout.custom_acceptmenu);
-        dialog.setTitle("Title...");
-
-
-        //LinearLayout Intialisation....
-        LinearLayout ll_menu = dialog.findViewById(R.id.ll_data);
-
-        EditText etCode = dialog.findViewById(R.id.et_code);
-        EditText etMenu = dialog.findViewById(R.id.et_menu);
-        EditText etQuantity = dialog.findViewById(R.id.et_qty);
-        EditText etServesIn = dialog.findViewById(R.id.et_ServesIn);
-        EditText etRate = dialog.findViewById(R.id.et_rate);
-        EditText etAmount = dialog.findViewById(R.id.et_amount);
-        Button btnSubmitFood = dialog.findViewById(R.id.btn_menu);
-        // if button is clicked, close the custom dialog
-        btnSubmitFood.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
 
     @Override
     public int getItemCount() {

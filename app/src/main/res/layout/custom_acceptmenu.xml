@@ -58,6 +58,7 @@
             android:layout_height="wrap_content"
             android:id="@+id/et_amount"
             android:hint="Amount"
+            android:editable="false"
             />
 
         <Button
